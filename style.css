@@ -1,9 +1,28 @@
+:root {
+    --lr-lightbrown: #CD853F;
+    --nr-brown: #EB9D3A;
+    --dr-darkbrown: #8B4513;
+    --bg-grey: #D3D3D3;
+}
 table {
     border-collapse: collapse;
     margin: 15px 0;
 }
-
 td, th {
     border: 1px solid black;
     padding: 5px 10px;
+}
+.light-roast {
+    background-color: var(--lr-lightbrown);
+}
+.regular-roast {
+    background-color: var(--nr-brown);
+}
+.dark-roast {
+    background-color: var(--dr-darkbrown);
+}
+#coffee-list {
+    width: 50%;
+    height: 100%;
+    background-color: var(--bg-grey);
 }
