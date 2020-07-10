@@ -34,12 +34,12 @@
     sortCoffee();
 
     const searchCoffee = function() {
-        let searchTerm = SELECTORS.searchInput.value;
-        let results = coffees.map(function(e) {
-            console.log(e.name);
-            if(e.name.includes(searchTerm)) {
-                return e.name;
-            }
+        let searchTerm = SELECTORS.searchInput.value.toLowerCase();
+        let results = [];
+        coffees.forEach(function(e) {
+           if(e.name.toLowerCase().includes(searchTerm)) {
+               results.push(e);
+           }
         });
         console.log(results);
         return results;
