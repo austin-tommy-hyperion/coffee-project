@@ -26,6 +26,8 @@
         {id: 14, name: 'French', roast: 'dark'},
     ];
 
+
+    //this sorts the coffee in ascending order
     const sortCoffee = function() {
         coffees.sort(function(a,b) {
             return a.id - b.id;
@@ -33,6 +35,8 @@
     }
     sortCoffee();
 
+
+    //start of search parameters
     const searchCoffee = function() {
         let searchTerm = SELECTORS.searchInput.value.toLowerCase();
         let results = [];
@@ -45,6 +49,11 @@
         return results;
     }
 
+    //end of search parameters
+
+
+
+
     function renderCoffee(coffee) {
         let html = '<tr class="coffee">';
         html += '<td>' + coffee.id + '</td>';
@@ -55,6 +64,8 @@
         return html;
     }
 
+
+
     function renderCoffees(coffees) {
         let html = '';
         for(var i = 0; i < coffees.length; i++) {
@@ -62,6 +73,9 @@
         }
         return html;
     }
+
+
+    //this updates the data form
 
     function updateCoffees(e) {
         e.preventDefault(); // don't submit the form, we just want to update the data
