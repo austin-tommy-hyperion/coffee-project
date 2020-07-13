@@ -26,11 +26,12 @@
     }
 
     function renderCoffee(coffee) {
-        let html = '<tr class="coffee">';
-        html += '<td>' + coffee.id + '</td>';
-        html += '<td>' + coffee.name + '</td>';
-        html += '<td>' + coffee.roast + '</td>';
-        html += '</tr>';
+        let roastClass = (coffee.roast === "light") ? "light-roast" : (coffee.roast === "medium" ) ? "medium-roast" : "dark-roast";
+        let html = '<div class="coffee-card">';
+        html += '<h2>' + coffee.name + '</h2>';
+        html += '<p class="mb-0 ' + roastClass + '">' + coffee.roast + '</p>';
+        html += '<hr style="width: 50%">';
+        html += '</div>';
 
         return html;
     }
@@ -65,11 +66,11 @@
                 filteredCoffees.push(coffee);
             }
         });
-        tbody.innerHTML = renderCoffees(filteredCoffees);
+        coffeeContainer.innerHTML = renderCoffees(filteredCoffees);
     }
 
     function updateCoffees() {
-        tbody.innerHTML = renderCoffees(filterCoffees());
+        coffeeContainer.innerHTML = renderCoffees(filterCoffees());
     }
 
     function newCoffee(e) {
@@ -84,17 +85,16 @@
         coffees.push(coffee);
         window.localStorage.setItem("coffeeArray", JSON.stringify(coffees));
         coffeeName.value = "";
-        tbody.innerHTML = renderCoffees(coffees);
+        coffeeContainer.innerHTML = renderCoffees(coffees);
     }
 
     let coffees = checkStorage();
-    let tbody = document.querySelector('#coffees');
+    let coffeeContainer = document.querySelector('#coffee-container');
     let submitButton = document.querySelector('#submit');
     let roastSelection = document.querySelector('#roast-selection');
     let searchInput = document.querySelector('#search-input');
 
-
-    tbody.innerHTML = renderCoffees(coffees);
+    coffeeContainer.innerHTML = renderCoffees(coffees);
 
     roastSelection.addEventListener('change', updateCoffees);
     searchInput.addEventListener('keyup', searchCoffees);

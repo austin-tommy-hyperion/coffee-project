@@ -1,6 +1,38 @@
 :root {
-    --lr-lightbrown: #CD853F;
-    --nr-brown: #EB9D3A;
-    --dr-darkbrown: #8B4513;
-    --bg-grey: #D3D3D3;
+    --cp-lightbrown: #967259;
+    --cp-brown: #7A4F38;
+    --cp-darkbrown: #3C2F2F;
+    /*--bg-grey: #D3D3D3;*/
+}
+
+body {
+    background-color: #efefef;
+}
+
+#coffee-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.coffee-card {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.coffee-card p {
+    font-size: 1.5em;
+}
+
+.light-roast {
+    color: var(--cp-lightbrown);
+}
+
+.medium-roast {
+    color: var(--cp-brown);
+}
+
+.dark-roast {
+    color: var(--cp-darkbrown);
 }
