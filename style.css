@@ -4,6 +4,10 @@
     --dr-darkbrown: #8B4513;
     --bg-grey: #D3D3D3;
 }
+body {
+    background-image: url("coffee.jpg");
+
+}
 table {
     border-collapse: collapse;
     margin: 15px 0;

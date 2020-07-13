@@ -40,6 +40,9 @@
     const searchCoffee = function() {
         let searchTerm = SELECTORS.searchInput.value.toLowerCase();
         let results = [];
+        if (SELECTORS.roastSelection.value=== "all"){
+            return coffees;
+        }
         coffees.forEach(function(e) {
            if(e.name.toLowerCase().includes(searchTerm)) {
                results.push(e);
@@ -77,10 +80,31 @@
 
     //this updates the data form
 
+/*    function filteredCoffees() {
+        let selectedRoast = SELECTORS.roastSelection.value;
+        let filteredCoffees = [];
+
+        if (selectedRoast === "all"){
+            return coffees;
+        }
+        coffees.forEach(function(coffee) {
+            if (coffee.roast === selectedRoast) {
+                filteredCoffees.push(coffee);
+            }
+        });
+        return filteredCoffees;
+    }*/
+
+
     function updateCoffees(e) {
         e.preventDefault(); // don't submit the form, we just want to update the data
         let selectedRoast = SELECTORS.roastSelection.value;
         let filteredCoffees = [];
+
+        if (selectedRoast === "all"){
+            SELECTORS.tbody.innerHTML = renderCoffees(coffees);
+        }
+
         coffees.forEach(function(coffee) {
             if (coffee.roast === selectedRoast) {
                 filteredCoffees.push(coffee);
