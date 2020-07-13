@@ -3,59 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Coffee Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-//header
+<!--//header-->
 <header>
     <h1>Coffee!</h1>
 </header>
 
 
+<!--
 //main section
-<main class="">
+-->
+<main class="container flex-grid">
 <!--    //left side of screen-->
-    <section class="left">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>ROAST</th>
-            </tr>
-            </thead>
-            <tbody id="coffees"></tbody>
-        </table>
+    <div class="row">
+    <section class="col-6">
+
     </section>
 
 <!--    //right side of screen-->
-    <section class="right">
+    <section class="col-6">
         <form>
-            <label for="roast-selection">Roast: </label>
-            <select id="roast-selection">
-                <option value="all">All</option>
-                <option value="light">Light</option>
-                <option value="medium">Medium</option>
-                <option value="dark">Dark</option>
-            </select>
-            <input type="text" id="search-input">
+            <div class="form-group">
+                <label for="roast-selection">Roast Selection</label>
+                <select name="roast-selection" id="roast-selection" class="form-control">
+                    <option value="all">All</option>
+                    <option value="light">Light</option>
+                    <option value="medium">Medium</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="search-input">Coffee Name</label>
+                <input type="text" class="form-control" id="search-input">
+            </div>
         </form>
+        <hr>
         <form>
-            <label for="new-name">Coffee Name:</label>
-            <input type="text" name="new-name" id="new-name">
-            <label for="new-roast">Roast Type:</label>
-            <select name="new-roast" id="new-roast">
-                <option value="light">Light</option>
-                <option value="medium">Medium</option>
-                <option value="dark">Dark</option>
-            </select>
-            <button id="submit">Add Coffee</button>
+            <div class="form-group">
+                <label for="new-roast">New Coffee Roast</label>
+                <select name="new-roast" id="new-roast" class="form-control">
+                    <option value="light">Light</option>
+                    <option value="medium">Medium</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="new-name">New Coffee Name</label>
+                <input type="text" class="form-control" id="new-name">
+            </div>
         </form>
     </section>
+    </div>
 </main>
 
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
 </html>
