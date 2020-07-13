@@ -6,60 +6,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+//header
+<header>
     <h1>Coffee!</h1>
-
-    //should roast-selections be a class? exp. lrs (light roast selection)
-
-    <form>
-        <label for="roast-selection"></label>
-        <select id="roast-selection">
-            <option value="all">all</option>
-            <option value="light">light</option>
-            <option value="medium">medium</option>
-            <option value="dark">dark</option>
-        </select>
-        <input type="text" id="coffee-search">
-        <input id="submit" type="submit" />
-    </form>
-
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>ROAST</th>
-        </tr>
-        </thead>
-        <tbody id="coffees"></tbody>
-    </table>
+</header>
 
 
-    <!--    <main id="coffee-list">-->
-<!--        <div class="card dark-roast">-->
-<!--            <h2>Hello</h2>-->
-<!--            <p></p>-->
-<!--        </div>-->
-<!--        <div class="card dark-roast">-->
-<!--            <h2>Hello</h2>-->
-<!--            <p></p>-->
-<!--        </div>-->
-<!--        <div class="card dark-roast">-->
-<!--            <h2>Hello</h2>-->
-<!--            <p></p>-->
-<!--        </div><div class="card dark-roast">-->
-<!--        <h2>Hello</h2>-->
-<!--        <p></p>-->
-<!--        </div>-->
-<!--        <div class="card dark-roast">-->
-<!--            <h2>Hello</h2>-->
-<!--            <p></p>-->
-<!--        </div><div class="card dark-roast">-->
-<!--        <h2>Hello</h2>-->
-<!--        <p></p>-->
-<!--    </div>-->
+//main section
+<main class="">
+    //left side of screen
+    <section class="left">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ROAST</th>
+            </tr>
+            </thead>
+            <tbody id="coffees"></tbody>
+        </table>
+    </section>
 
+    //right side of screen
+    <section class="right">
+        <form>
+            <label for="roast-selection"></label>
+            <select id="roast-selection">
+                <option value="all">all</option>
+                <option value="light">light</option>
+                <option value="medium">medium</option>
+                <option value="dark">dark</option>
+            </select>
+            <input type="text" id="coffee-search">
+            <input id="submit" type="submit" />
+        </form>
+    </section>
+</main>
 
-<!--    </main>-->
 
     <script src="main.js"></script>
 </body>
