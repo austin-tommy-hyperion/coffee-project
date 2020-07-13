@@ -32,15 +32,25 @@
     //right side of screen
     <section class="right">
         <form>
-            <label for="roast-selection"></label>
+            <label for="roast-selection">Roast: </label>
             <select id="roast-selection">
-                <option value="all">all</option>
-                <option value="light">light</option>
-                <option value="medium">medium</option>
-                <option value="dark">dark</option>
+                <option value="all">All</option>
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="dark">Dark</option>
             </select>
-            <input type="text" id="coffee-search">
-            <input id="submit" type="submit" />
+            <input type="text" id="search-input">
+        </form>
+        <form>
+            <label for="new-name">Coffee Name:</label>
+            <input type="text" name="new-name" id="new-name">
+            <label for="new-roast">Roast Type:</label>
+            <select name="new-roast" id="new-roast">
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="dark">Dark</option>
+            </select>
+            <button id="submit">Add Coffee</button>
         </form>
     </section>
 </main>
