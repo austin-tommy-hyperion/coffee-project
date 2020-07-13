@@ -25,6 +25,13 @@ body {
     font-size: 1.5em;
 }
 
+.coffee-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 6em;
+}
+
 .light-roast {
     color: var(--cp-lightbrown);
 }

@@ -25,7 +25,10 @@
             <div id="coffee-container">
                 <div class="coffee-card">
                     <h2>Coffee Name</h2>
-                    <p>Coffee Roast</p>
+                    <div class="row">
+                        <p>Coffee Roast</p>
+                        <i class="far fa-edit"></i>
+                    </div>
                 </div>
             </div>
         </section>
@@ -43,14 +46,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="search-input">Coffee Name</label>
+                    <label for="search-input">Search Coffee</label>
                     <input type="text" class="form-control" id="search-input">
                 </div>
             </form>
             <hr>
+            <h3 class="text-center"><span>Add your own</span> Coffee!</h3>
             <form>
                 <div class="form-group">
-                    <label for="new-roast">New Coffee Roast</label>
+                    <label for="new-roast">Coffee Roast</label>
                     <select name="new-roast" id="new-roast" class="form-control">
                         <option value="light">Light</option>
                         <option value="medium">Medium</option>
@@ -58,15 +62,24 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="new-name">New Coffee Name</label>
+                    <label for="new-name">Coffee Name</label>
                     <input type="text" class="form-control" id="new-name">
-                    <button class="btn btn-info mt-3" id="submit">Add Coffee</button>
+                </div>
+                <div class="form-group">
+                    <label for="new-price">Coffee Price</label>
+                    <input type="number" class="form-control" id="new-price">
+                </div>
+                <div class="form-group">
+                    <label for="new-description">Coffee Description</label>
+                    <input type="text" class="form-control" id="new-description">
+                    <button class="btn btn-info mt-3" id="submit"><span id="submit-change">Add</span> Coffee</button>
                 </div>
             </form>
         </section>
     </div>
 </main>
 
+<script src="https://kit.fontawesome.com/dc8bc1f2b7.js" crossorigin="anonymous"></script>
 <script src="main.js"></script>
 </body>
 </html>
