@@ -1,6 +1,30 @@
 (function() {
     "use strict"
 
+    function checkStorage() {
+        let coffeeArray = window.localStorage.getItem("coffeeArray");
+        if(coffeeArray === null) {
+            // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
+            return [
+                {id: 1, name: 'Light City', roast: 'light'},
+                {id: 2, name: 'Half City', roast: 'light'},
+                {id: 3, name: 'Cinnamon', roast: 'light'},
+                {id: 4, name: 'City', roast: 'medium'},
+                {id: 5, name: 'American', roast: 'medium'},
+                {id: 6, name: 'Breakfast', roast: 'medium'},
+                {id: 7, name: 'High', roast: 'dark'},
+                {id: 8, name: 'Continental', roast: 'dark'},
+                {id: 9, name: 'New Orleans', roast: 'dark'},
+                {id: 10, name: 'European', roast: 'dark'},
+                {id: 11, name: 'Espresso', roast: 'dark'},
+                {id: 12, name: 'Viennese', roast: 'dark'},
+                {id: 13, name: 'Italian', roast: 'dark'},
+                {id: 14, name: 'French', roast: 'dark'},
+            ];
+        }
+        return JSON.parse(coffeeArray);
+    }
+
     function renderCoffee(coffee) {
         let html = '<tr class="coffee">';
         html += '<td>' + coffee.id + '</td>';
@@ -58,30 +82,12 @@
             roast: coffeeRoast.value
         };
         coffees.push(coffee);
-        storage.setItem("coffeeArray", coffees);
+        window.localStorage.setItem("coffeeArray", JSON.stringify(coffees));
         coffeeName.value = "";
         tbody.innerHTML = renderCoffees(coffees);
     }
 
-// from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
-    let coffees = [
-        {id: 1, name: 'Light City', roast: 'light'},
-        {id: 2, name: 'Half City', roast: 'light'},
-        {id: 3, name: 'Cinnamon', roast: 'light'},
-        {id: 4, name: 'City', roast: 'medium'},
-        {id: 5, name: 'American', roast: 'medium'},
-        {id: 6, name: 'Breakfast', roast: 'medium'},
-        {id: 7, name: 'High', roast: 'dark'},
-        {id: 8, name: 'Continental', roast: 'dark'},
-        {id: 9, name: 'New Orleans', roast: 'dark'},
-        {id: 10, name: 'European', roast: 'dark'},
-        {id: 11, name: 'Espresso', roast: 'dark'},
-        {id: 12, name: 'Viennese', roast: 'dark'},
-        {id: 13, name: 'Italian', roast: 'dark'},
-        {id: 14, name: 'French', roast: 'dark'},
-    ];
-
-    let storage = window.localStorage;
+    let coffees = checkStorage();
     let tbody = document.querySelector('#coffees');
     let submitButton = document.querySelector('#submit');
     let roastSelection = document.querySelector('#roast-selection');
