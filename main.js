@@ -83,6 +83,7 @@
     function updateCoffees() {
         coffeeContainer.innerHTML = renderCoffees(filterCoffees());
     }
+//refactor to take out values
 
     function newCoffee(e) {
         e.preventDefault();
@@ -102,6 +103,67 @@
         window.localStorage.setItem("coffeeArray", JSON.stringify(coffees));
         coffeeName = "";
         coffeeContainer.innerHTML = renderCoffees(coffees);
+    }
+
+    function showCoffee(coffee) {
+        let coffeeName = document.querySelector('#new-name');
+        let coffeeRoast = document.querySelector('#new-roast');
+        let coffeePrice = document.querySelector('#new-price');
+        let coffeeDescription = document.querySelector('#new-description');
+
+        coffeeName.value = coffee.name;
+        coffeeRoast.value = coffee.roast;
+        coffeeDescription.value = coffee.description;
+        coffeePrice.value = coffee.price;
+    }
+
+
+
+    function getCoffee(id) {
+        let coffee = coffees[id-1];
+        showCoffee(coffee);
+    }
+
+    function editCoffee(e) {
+        e.preventDefault();
+        let coffeeName = document.querySelector('#new-name');
+        let coffeeRoast = document.querySelector('#new-roast');
+        let coffeePrice = document.querySelector('#new-price');
+        let coffeeDescription = document.querySelector('#new-description');
+        let coffee = {
+            id: currentCoffee,
+            name: coffeeName,
+            roast: coffeeRoast,
+            price: coffeePrice,
+            description: coffeeDescription
+        }
+        coffees[currentCoffee -1] = coffee;
+        coffeeContainer.innerHTML = renderCoffees(coffees);
+
+
+    }
+
+
+
+    function toggleForm(currentClicked) {
+        if(addForm) {
+            currentCoffee = currentClicked.id;
+            addForm = false;
+            getCoffee(currentCoffee);
+            submitButton.removeEventListener('click', newCoffee);
+            submitButton.addEventListener('click', editCoffee);
+        } else {
+            if(currentCoffee === currentClicked.id) {
+                console.log('same coffee');
+                addForm = true;
+                submitButton.removeEventListener('click', editCoffee);
+                submitButton.addEventListener('click', newCoffee);
+            } else {
+                console.log('new Coffee');
+                currentCoffee = currentClicked.id;
+                getCoffee(currentCoffee);
+            }
+        }
     }
 
     // function toggleForm(event) {
@@ -182,12 +244,25 @@
     let submitButton = document.querySelector('#submit');
     let roastSelection = document.querySelector('#roast-selection');
     let searchInput = document.querySelector('#search-input');
+    let toggleCoffee;
 
     coffeeContainer.innerHTML = renderCoffees(coffees);
 
     roastSelection.addEventListener('change', updateCoffees);
     searchInput.addEventListener('keyup', searchCoffees);
     submitButton.addEventListener('click', newCoffee);
+    coffeeContainer.addEventListener('click', function(event) {
+        if(event.target.nodeName === "I") {
+            let currentClicked = event.target.parentNode.parentNode.firstChild;
+            console.log(currentClicked.id);
+            toggleForm(currentClicked);
+
+
+        }
+    });
+
+
+
     // coffeeContainer.addEventListener('click', function(event) {
     //     if(event.target.nodeName === "I") {
     //         toggleForm(event);
