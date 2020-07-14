@@ -44,6 +44,10 @@ body {
     color: var(--cp-darkbrown);
 }
 
+.active {
+    color: dodgerblue;
+}
+
 i:hover {
     cursor: pointer;
 }
