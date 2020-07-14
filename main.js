@@ -198,6 +198,8 @@
         }
     }
 
+
+
     let coffees = checkStorage();
     let addForm = true;
     let currentCoffee = -1, selectedNode = -1;
