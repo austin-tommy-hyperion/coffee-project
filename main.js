@@ -198,7 +198,15 @@
         }
     }
 
-
+function sortPrice(e){
+        e.preventDefault();
+        let coffeeArray = coffees.slice(0, coffees.length);
+        coffeeArray.sort(function (a, b) {
+            return a.price - b.price;
+        });
+    coffeeContainer.innerHTML = renderCoffees(coffeeArray);
+    console.log(coffeeArray);
+}
 
     let coffees = checkStorage();
     let addForm = true;
@@ -207,9 +215,11 @@
     let submitButton = document.querySelector('#submit');
     let roastSelection = document.querySelector('#roast-selection');
     let searchInput = document.querySelector('#search-input');
+    let priceSort = document.querySelector('#price-sort');
 
     coffeeContainer.innerHTML = renderCoffees(coffees);
 
+    priceSort.addEventListener('click', sortPrice);
     roastSelection.addEventListener('change', updateCoffees);
     searchInput.addEventListener('keyup', searchCoffees);
     submitButton.addEventListener('click', newCoffee);
@@ -221,7 +231,7 @@
             console.log(currentNode);
             toggleForm(currentClicked, currentNode);
 
-
         }
+
     });
 })();
