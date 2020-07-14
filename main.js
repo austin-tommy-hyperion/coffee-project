@@ -7,6 +7,8 @@
     // Bring up info in the add coffee section and be able to save changes
     // search through coffee name and description
 
+
+    //checking local storage for the existing array
     function checkStorage() {
         let coffeeArray = window.localStorage.getItem("coffeeArray");
         if(coffeeArray === null) {
@@ -31,6 +33,7 @@
         return JSON.parse(coffeeArray);
     }
 
+    //rendering the coffee, to display on the page
     function renderCoffee(coffee) {
         let roastClass = (coffee.roast === "light") ? "light-roast" : (coffee.roast === "medium" ) ? "medium-roast" : "dark-roast";
         let html = '<div class="coffee-card">';
@@ -45,6 +48,7 @@
         return html;
     }
 
+    //looping through the coffee array, to call each coffee element
     function renderCoffees(coffees) {
         let html = '';
         for(let i=0; i<coffees.length; i++) {
@@ -53,6 +57,7 @@
         return html;
     }
 
+    //grabbing the roast selection and returning the filtered array
     function filterCoffees() {
         let selectedRoast = roastSelection.value;
         let filteredCoffees = [];
@@ -67,6 +72,8 @@
         return filteredCoffees;
     }
 
+
+    //searching through the coffee names and description for matching terms
     function searchCoffees() {
         let input = searchInput.value.toLowerCase().trim();
         let filteredCoffees = [];
@@ -80,10 +87,12 @@
         coffeeContainer.innerHTML = renderCoffees(filteredCoffees);
     }
 
+    //when changing the select, the inner html will update accordingly to each select
     function updateCoffees() {
         coffeeContainer.innerHTML = renderCoffees(filterCoffees());
     }
 
+    //clear the coffee form, after used.
     function clearCoffee() {
         let coffeeName = document.querySelector('#new-name');
         let coffeePrice = document.querySelector('#new-price');
@@ -93,6 +102,7 @@
         coffeeDescription.value = "";
     }
 
+    //adds a new coffee and saves it to local storage
     function newCoffee(e) {
         e.preventDefault();
         let coffeeName = document.querySelector('#new-name');
@@ -113,6 +123,7 @@
         coffeeContainer.innerHTML = renderCoffees(coffees);
     }
 
+    //displays coffee information to the screen
     function showCoffee(coffee) {
         let coffeeName = document.querySelector('#new-name');
         let coffeeRoast = document.querySelector('#new-roast');
@@ -126,12 +137,13 @@
     }
 
 
-
+//grab coffee object, depending on the coffee id provided
     function getCoffee(id) {
         let coffee = coffees[id-1];
         showCoffee(coffee);
     }
 
+    //change a currently existing coffee
     function editCoffee(e) {
         e.preventDefault();
         let coffeeName = document.querySelector('#new-name');
@@ -152,9 +164,9 @@
         currentCoffee = -1;
         addForm = true;
         changeForm();
-
     }
 
+    //this changes the text of the add/edit form
     function changeForm() {
         let titleSpan = document.querySelector('#form-title-span');
         let submitSpan = document.querySelector('#submit-span');
@@ -167,6 +179,7 @@
         }
     }
 
+    //This is the conditional that toggles the form, and adds a class 'active'
     // Might need to refactor this to split into smaller function
     function toggleForm(currentClicked, currentNode) {
         if(addForm) {
@@ -198,9 +211,10 @@
         }
     }
 
+    //sort price
 function sortPrice(e){
         e.preventDefault();
-        let coffeeArray = coffees.slice(0, coffees.length);
+        let coffeeArray = filterCoffees().slice(0, coffees.length);
         coffeeArray.sort(function (a, b) {
             return a.price - b.price;
         });
@@ -208,6 +222,7 @@ function sortPrice(e){
     console.log(coffeeArray);
 }
 
+//global variables
     let coffees = checkStorage();
     let addForm = true;
     let currentCoffee = -1, selectedNode = -1;
@@ -219,6 +234,7 @@ function sortPrice(e){
 
     coffeeContainer.innerHTML = renderCoffees(coffees);
 
+    //event listeners
     priceSort.addEventListener('click', sortPrice);
     roastSelection.addEventListener('change', updateCoffees);
     searchInput.addEventListener('keyup', searchCoffees);
