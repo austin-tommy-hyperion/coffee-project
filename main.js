@@ -34,7 +34,7 @@
     function renderCoffee(coffee) {
         let roastClass = (coffee.roast === "light") ? "light-roast" : (coffee.roast === "medium" ) ? "medium-roast" : "dark-roast";
         let html = '<div class="coffee-card">';
-        html += '<h2>' + coffee.name + '</h2>';
+        html += '<h2 id="'+ coffee.id +'">' + coffee.name + '</h2>';
         html += '<div class="coffee-footer">'
         html += '<p class="mr-3 mb-0 ' + roastClass + '">' + coffee.roast + '</p>';
         html += '<i class="far fa-edit"></i>'
@@ -104,7 +104,50 @@
         coffeeContainer.innerHTML = renderCoffees(coffees);
     }
 
+    function toggleForm(addForm, event) {
+        let titleSpan = document.querySelector('#form-title-span');
+        let submitSpan = document.querySelector('#submit-span');
+        if(addForm) {
+            titleSpan.innerText = "Edit a";
+            submitSpan.innerText = "Save";
+            getCoffee(event.target);
+            submitButton.addEventListener('click', editCoffee);
+            addForm = false;
+        } else {
+            titleSpan.innerText = "Add your own";
+            submitSpan.innerText = "Add";
+            submitButton.addEventListener('click',newCoffee);
+            addForm = true;
+        }
+    }
+
+    function getCoffee(event) {
+        let id = String(event.parentNode.parentNode.firstChild.id);
+        let currentCoffee;
+        coffees.forEach(function(coffee) {
+            if(coffee.id === id) {
+                currentCoffee = coffee;
+            }
+        });
+        console.log();
+        let coffeeName = document.querySelector('#new-name').value;
+        let coffeeRoast = document.querySelector('#new-roast').value;
+        let coffeePrice = document.querySelector('#new-price').value;
+        let coffeeDescription = document.querySelector('#new-description').value;
+    }
+
+    function editCoffee(e) {
+        e.preventDefault();
+        let coffeeName = document.querySelector('#new-name').value;
+        let coffeeRoast = document.querySelector('#new-roast').value;
+        let coffeePrice = document.querySelector('#new-price').value;
+        let coffeeDescription = document.querySelector('#new-description').value;
+
+
+    }
+
     let coffees = checkStorage();
+    let addForm = true;
     let coffeeContainer = document.querySelector('#coffee-container');
     let submitButton = document.querySelector('#submit');
     let roastSelection = document.querySelector('#roast-selection');
@@ -115,9 +158,9 @@
     roastSelection.addEventListener('change', updateCoffees);
     searchInput.addEventListener('keyup', searchCoffees);
     submitButton.addEventListener('click',newCoffee);
-    coffeeContainer.addEventListener('click', function(e) {
-        if(e.target.nodeName === "I") {
-            edit();
+    coffeeContainer.addEventListener('click', function(event) {
+        if(event.target.nodeName === "I") {
+            toggleForm(addForm,event);
         }
     })
 })();

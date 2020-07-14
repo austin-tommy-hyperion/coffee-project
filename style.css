@@ -43,3 +43,7 @@ body {
 .dark-roast {
     color: var(--cp-darkbrown);
 }
+
+i:hover {
+    cursor: pointer;
+}
