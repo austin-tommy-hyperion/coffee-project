@@ -102,7 +102,6 @@
                 } else {
                     return b.price - a.price;
                 }
-                //return (doc.priceSort.value === "low") ? a.price - b.price : b.price - a.price
             });
             updateCoffees(coffees);
         } else {
