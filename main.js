@@ -1,15 +1,8 @@
 (function() {
-    "use strict"
+    "use strict";
 
-    // Description and Price
-    // Sort by price
-    // Edit Coffee
-    // Bring up info in the add coffee section and be able to save changes
-    // search through coffee name and description
-
-
-    //checking local storage for the existing array
-    function checkStorage() {
+    // Check local storage for existing array and if there is none, create one.
+    const checkStorage = function() {
         let coffeeArray = window.localStorage.getItem("coffeeArray");
         if(coffeeArray === null) {
             // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
@@ -33,8 +26,8 @@
         return JSON.parse(coffeeArray);
     }
 
-    //rendering the coffee, to display on the page
-    function renderCoffee(coffee) {
+    // Renders each coffee
+    const renderCoffee = function(coffee) {
         let roastClass = (coffee.roast === "light") ? "light-roast" : (coffee.roast === "medium" ) ? "medium-roast" : "dark-roast";
         let html = '<div class="coffee-card">';
         html += '<h2 id="'+ coffee.id +'">' + coffee.name + '</h2>';
@@ -48,8 +41,8 @@
         return html;
     }
 
-    //looping through the coffee array, to call each coffee element
-    function renderCoffees(coffees) {
+    // Displays all the rendered coffees to the screen
+    const renderCoffees = function(coffees) {
         let html = '';
         for(let i=0; i<coffees.length; i++) {
             html += renderCoffee(coffees[i]);
@@ -57,197 +50,191 @@
         return html;
     }
 
-    //grabbing the roast selection and returning the filtered array
-    function filterCoffees() {
-        let selectedRoast = roastSelection.value;
-        let filteredCoffees = [];
-        if(selectedRoast === "all") {
-            return coffees;
-        }
-        coffees.forEach(function(coffee) {
-            if(coffee.roast === selectedRoast) {
-                filteredCoffees.push(coffee);
-            }
-        });
-        return filteredCoffees;
+    // Draws new coffees to the screen
+    const updateCoffees = function(coffeeArray) {
+        doc.coffeeContainer.innerHTML = renderCoffees(coffeeArray);
     }
 
-
-    //searching through the coffee names and description for matching terms
-    function searchCoffees() {
-        let input = searchInput.value.toLowerCase().trim();
-        let filteredCoffees = [];
-        filterCoffees().forEach(function(coffee) {
-            let coffeeName = coffee.name.toLowerCase();
-            let coffeeDes = coffee.description.toLowerCase();
-            if(coffeeName.includes(input) || coffeeDes.includes(input)) {
-                filteredCoffees.push(coffee);
-            }
-        });
-        coffeeContainer.innerHTML = renderCoffees(filteredCoffees);
+    // Clears the input for adding / editing a coffee
+    const clearInput = function() {
+        doc.coffeeName.value = "";
+        doc.coffeePrice.value = "";
+        doc.coffeeDescription.value = "";
     }
 
-    //when changing the select, the inner html will update accordingly to each select
-    function updateCoffees() {
-        coffeeContainer.innerHTML = renderCoffees(filterCoffees());
+    // Puts coffee into into the editing a coffee section
+    const showCoffee = function(coffee) {
+        doc.coffeeName.value = coffee.name;
+        doc.coffeeRoast.value = coffee.roast;
+        doc.coffeePrice.value = coffee.price;
+        doc.coffeeDescription.value = coffee.description;
     }
 
-    //clear the coffee form, after used.
-    function clearCoffee() {
-        let coffeeName = document.querySelector('#new-name');
-        let coffeePrice = document.querySelector('#new-price');
-        let coffeeDescription = document.querySelector('#new-description');
-        coffeeName.value = "";
-        coffeePrice.value = "";
-        coffeeDescription.value = "";
-    }
-
-    //adds a new coffee and saves it to local storage
-    function newCoffee(e) {
-        e.preventDefault();
-        let coffeeName = document.querySelector('#new-name');
-        let coffeeRoast = document.querySelector('#new-roast');
-        let coffeePrice = document.querySelector('#new-price');
-        let coffeeDescription = document.querySelector('#new-description');
-        let coffee = {
-            id: coffees.length + 1,
-            name: (coffeeName.value === "") ? "New Name" : coffeeName.value,
-            roast: coffeeRoast.value,
-            price: (coffeePrice.value === "") ? 1.25 : parseFloat(coffeePrice.value),
-            description: (coffeeDescription.value === "") ? "This coffee wasn't loved enough to be described" : coffeeDescription.value
-        };
-        coffees.push(coffee);
-        console.log(coffees);
-        window.localStorage.setItem("coffeeArray", JSON.stringify(coffees));
-        clearCoffee();
-        coffeeContainer.innerHTML = renderCoffees(coffees);
-    }
-
-    //displays coffee information to the screen
-    function showCoffee(coffee) {
-        let coffeeName = document.querySelector('#new-name');
-        let coffeeRoast = document.querySelector('#new-roast');
-        let coffeePrice = document.querySelector('#new-price');
-        let coffeeDescription = document.querySelector('#new-description');
-
-        coffeeName.value = coffee.name;
-        coffeeRoast.value = coffee.roast;
-        coffeeDescription.value = coffee.description;
-        coffeePrice.value = coffee.price;
-    }
-
-
-//grab coffee object, depending on the coffee id provided
-    function getCoffee(id) {
-        let coffee = coffees[id-1];
+    // returns coffee object using ID
+    const getCoffee = function(id) {
+        let coffee = item.coffees[id-1];
         showCoffee(coffee);
     }
 
-    //change a currently existing coffee
-    function editCoffee(e) {
-        e.preventDefault();
-        let coffeeName = document.querySelector('#new-name');
-        let coffeeRoast = document.querySelector('#new-roast');
-        let coffeePrice = document.querySelector('#new-price');
-        let coffeeDescription = document.querySelector('#new-description');
-        let coffee = {
-            id: currentCoffee,
-            name: coffeeName.value,
-            roast: coffeeRoast.value,
-            price: coffeePrice.value,
-            description: coffeeDescription.value
+    // Filter the coffees and updates the coffees and returns an array just in case
+    const filterCoffees = function() {
+        let selectedRoast = doc.roastSelection.value;
+        let filteredCoffees = [];
+        if(selectedRoast === "all") {
+            updateCoffees(item.coffees);
+            return item.coffees;
         }
-        coffees[currentCoffee-1] = coffee;
-        window.localStorage.setItem("coffeeArray", JSON.stringify(coffees));
-        coffeeContainer.innerHTML = renderCoffees(coffees);
-        clearCoffee();
-        currentCoffee = -1;
-        addForm = true;
+        item.coffees.forEach(function(coffee) {
+            if(coffee.roast === selectedRoast)
+                filteredCoffees.push(coffee);
+        });
+        updateCoffees(filteredCoffees);
+        return filteredCoffees;
+    }
+
+    // Sorts the coffee by price
+    const sortByPrice = function() {
+        let coffees = filterCoffees().slice(0,item.coffees.length);
+        if(doc.priceSort.value !== "default") {
+            coffees.sort(function(a,b) {
+                if(doc.priceSort.value === "low") {
+                    return a.price - b.price;
+                } else {
+                    return b.price - a.price;
+                }
+                //return (doc.priceSort.value === "low") ? a.price - b.price : b.price - a.price
+            });
+            updateCoffees(coffees);
+        } else {
+            updateCoffees(item.coffees);
+        }
+    }
+
+    // Searches through the coffee names and description for matching terms
+    const searchCoffees = function() {
+        let input = doc.searchInput.value.toLowerCase().trim();
+        let filteredCoffees = [];
+        filterCoffees().forEach(function(coffee) {
+            let name = coffee.name.toLowerCase();
+            let desc = coffee.description.toLowerCase();
+            if(name.includes(input) || desc.includes(input))
+                filteredCoffees.push(coffee);
+        });
+        updateCoffees(filteredCoffees);
+    }
+
+    // Adds a new coffee to the coffee array and saves it to local storage
+    const newCoffee = function(e) {
+        e.preventDefault();
+        let coffee = {
+            id: item.coffees.length + 1,
+            name: (doc.coffeeName.value === "") ? "New Name" : doc.coffeeName.value,
+            roast: doc.coffeeRoast.value,
+            price: (doc.coffeePrice.value === "") ? 1.25 : parseFloat(doc.coffeePrice.value),
+            description: (doc.coffeeDescription.value === "") ? "This coffee wasn't loved enough to be described" : doc.coffeeDescription.value
+        };
+        item.coffees.push(coffee);
+        window.localStorage.setItem("coffeeArray",JSON.stringify(item.coffees));
+        updateCoffees(item.coffees);
+        clearInput();
+    }
+
+    // Changes the form text
+    const changeForm = function() {
+        if(item.addForm) {
+            doc.titleSpan.innerText = "Add your own";
+            doc.submitSpan.innerText = "Add";
+        } else {
+            doc.titleSpan.innerText = "Edit a";
+            doc.submitSpan.innerText = "Save";
+        }
+    }
+
+    // Gets the data from the form and adds it as a coffee
+    const editCoffee = function(e) {
+        e.preventDefault();
+        let coffee = {
+            id: item.selectedCoffee,
+            name: doc.coffeeName.value,
+            roast: doc.coffeeRoast.value,
+            price: doc.coffeePrice.value,
+            description: doc.coffeeDescription.value
+        }
+        item.coffees[item.selectedCoffee-1] = coffee;
+        window.localStorage.setItem("coffeeArray", JSON.stringify(item.coffees));
+        updateCoffees(item.coffees);
+        clearInput();
+        item.selectedCoffee = -1;
+        item.addForm = true;
         changeForm();
     }
 
-    //this changes the text of the add/edit form
-    function changeForm() {
-        let titleSpan = document.querySelector('#form-title-span');
-        let submitSpan = document.querySelector('#submit-span');
-        if(addForm) {
-            titleSpan.innerText = "Add your own";
-            submitSpan.innerText = "Add";
-        } else {
-            titleSpan.innerText = "Edit a";
-            submitSpan.innerText = "Save";
-        }
-    }
-
-    //This is the conditional that toggles the form, and adds a class 'active'
-    // Might need to refactor this to split into smaller function
-    function toggleForm(currentClicked, currentNode) {
-        if(addForm) {
-            currentCoffee = currentClicked.id;
-            addForm = false;
+    // Gets a couple pieces of vital data and toggles the form
+    const toggleForm = function(selectedNode, selectedCoffee) {
+        if(item.addForm) {
+            item.selectedCoffee = selectedCoffee.id;
+            item.addForm = false;
+            item.selectedNode = selectedNode;
+            item.selectedNode.classList.add('active');
+            doc.submitButton.removeEventListener('click', newCoffee);
+            doc.submitButton.addEventListener('click', editCoffee);
             changeForm();
-            selectedNode = currentNode;
-            selectedNode.classList.add('active');
-            getCoffee(currentCoffee);
-            submitButton.removeEventListener('click', newCoffee);
-            submitButton.addEventListener('click', editCoffee);
+            getCoffee(item.selectedCoffee);
         } else {
-            if(currentCoffee === currentClicked.id) {
-                console.log('same coffee');
-                selectedNode.classList.remove('active');
-                clearCoffee();
-                addForm = true;
+            if(item.selectedCoffee === selectedCoffee.id) {
+                item.selectedNode.classList.remove('active');
+                item.addForm = true;
+                clearInput();
                 changeForm();
-                submitButton.removeEventListener('click', editCoffee);
-                submitButton.addEventListener('click', newCoffee);
+                doc.submitButton.removeEventListener('click', editCoffee);
+                doc.submitButton.addEventListener('click', newCoffee);
             } else {
-                console.log('new Coffee');
-                selectedNode.classList.remove('active');
-                selectedNode = currentNode;
-                selectedNode.classList.add('active');
-                currentCoffee = currentClicked.id;
-                getCoffee(currentCoffee);
+                item.selectedNode.classList.remove('active');
+                item.selectedNode = selectedNode;
+                item.selectedNode.classList.add('active');
+                item.selectedCoffee = selectedCoffee.id;
+                getCoffee(item.selectedCoffee);
             }
         }
     }
 
-    //sort price
-function sortPrice(e){
-        e.preventDefault();
-        let coffeeArray = filterCoffees().slice(0, coffees.length);
-        coffeeArray.sort(function (a, b) {
-            return a.price - b.price;
+    // Create an object that will be filled with items used.
+    const item = {
+        coffees: checkStorage(),
+        addForm: true,
+        selectedCoffee: -1,
+        selectedNode: -1
+    };
+
+    // Create an object that contains all the selectors
+    const doc = {
+        coffeeContainer: document.querySelector('#coffee-container'),
+        submitButton: document.querySelector('#submit'),
+        roastSelection: document.querySelector('#roast-selection'),
+        searchInput: document.querySelector('#search-input'),
+        priceSort: document.querySelector('#sort-selection'),
+        coffeeName: document.querySelector('#coffee-name'),
+        coffeeRoast: document.querySelector('#coffee-roast'),
+        coffeePrice: document.querySelector('#coffee-price'),
+        coffeeDescription: document.querySelector('#coffee-description'),
+        titleSpan: document.querySelector('#form-title-span'),
+        submitSpan: document.querySelector('#submit-span')
+    };
+
+    // Init will run on page load.
+    const init = function() {
+        updateCoffees(item.coffees);
+        doc.roastSelection.addEventListener('change', filterCoffees);
+        doc.priceSort.addEventListener('change', sortByPrice);
+        doc.searchInput.addEventListener('keyup', searchCoffees);
+        doc.submitButton.addEventListener('click', newCoffee);
+        doc.coffeeContainer.addEventListener('click', function(event) {
+            if(event.target.nodeName === "I") {
+                let selectedNode = event.target;
+                let selectedCoffee = event.target.parentNode.parentNode.firstChild;
+                toggleForm(selectedNode, selectedCoffee);
+            }
         });
-    coffeeContainer.innerHTML = renderCoffees(coffeeArray);
-    console.log(coffeeArray);
-}
-
-//global variables
-    let coffees = checkStorage();
-    let addForm = true;
-    let currentCoffee = -1, selectedNode = -1;
-    let coffeeContainer = document.querySelector('#coffee-container');
-    let submitButton = document.querySelector('#submit');
-    let roastSelection = document.querySelector('#roast-selection');
-    let searchInput = document.querySelector('#search-input');
-    let priceSort = document.querySelector('#price-sort');
-
-    coffeeContainer.innerHTML = renderCoffees(coffees);
-
-    //event listeners
-    priceSort.addEventListener('click', sortPrice);
-    roastSelection.addEventListener('change', updateCoffees);
-    searchInput.addEventListener('keyup', searchCoffees);
-    submitButton.addEventListener('click', newCoffee);
-    coffeeContainer.addEventListener('click', function(event) {
-        if(event.target.nodeName === "I") {
-            let currentNode = event.target;
-            let currentClicked = event.target.parentNode.parentNode.firstChild;
-            console.log(currentClicked.id);
-            console.log(currentNode);
-            toggleForm(currentClicked, currentNode);
-
-        }
-
-    });
+    }
+    init();
 })();

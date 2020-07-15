@@ -1,31 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Coffee Project</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- header -->
+<!-- Header -->
 <header class="text-center pt-3">
     <h1>Coffee!</h1>
     <hr style="width: 75%">
 </header>
 
-
-<!-- Main Section -->
+<!-- Main Container -->
 <main class="container-fluid p-5">
-    <!-- Left Column -->
     <div class="row">
+        <!-- Left Side -->
         <section class="col-6">
             <div id="coffee-container">
                 <div class="coffee-card">
-                    <h2>Coffee Name</h2>
-                    <div class="row">
+                    <h3>Coffee Name</h3>
+                    <div class="coffee-footer">
                         <p>Coffee Roast</p>
                         <i class="far fa-edit"></i>
                     </div>
@@ -33,47 +32,60 @@
             </div>
         </section>
 
-        <!-- Right Column -->
+        <!-- Right Side -->
         <section class="col-6">
+
+            <!-- Form One -->
             <form>
-                <div class="form-group">
-                    <label for="roast-selection">Roast Selection</label>
-                    <select name="roast-selection" id="roast-selection" class="form-control">
-                        <option value="all">All</option>
-                        <option value="light">Light</option>
-                        <option value="medium">Medium</option>
-                        <option value="dark">Dark</option>
-                    </select>
-                    <button class="btn btn-info mt-3" id="price-sort">Sort by Price</button>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="roast-selection">Sort by Roast</label>
+                        <select name="roast-selection" id="roast-selection" class="form-control">
+                            <option value="all">All</option>
+                            <option value="light">Light</option>
+                            <option value="medium">Medium</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="sort-selection">Sort by price</label>
+                        <select name="sort-selection" id="sort-selection" class="form-control">
+                            <option value="default">Default Sorting</option>
+                            <option value="low">Low to High</option>
+                            <option value="high">High to Low</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="search-input">Search Coffee</label>
+                    <label for="search-input">Search Coffee by Name or Description</label>
                     <input type="text" class="form-control" id="search-input">
                 </div>
             </form>
+
             <hr>
-            <h3 class="text-center"><span id="form-title-span">Add your own</span> Coffee!</h3>
+
+            <!-- Form 2 -->
+            <h2 class="text-center pt-2"><span id="form-title-span">Add your own</span> Coffee!</h2>
             <form>
-                <input type="hidden" id="coffee-id" value="-1">
                 <div class="form-group">
-                    <label for="new-roast">Coffee Roast</label>
-                    <select name="new-roast" id="new-roast" class="form-control">
+                    <label for="coffee-roast">Coffee Roast</label>
+                    <select name="coffee-roast" id="coffee-roast" class="form-control">
                         <option value="light">Light</option>
                         <option value="medium">Medium</option>
                         <option value="dark">Dark</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="new-name">Coffee Name</label>
-                    <input type="text" class="form-control" id="new-name">
+                    <label for="coffee-name">Coffee Name</label>
+                    <input type="text" class="form-control" id="coffee-name">
                 </div>
                 <div class="form-group">
-                    <label for="new-price">Coffee Price</label>
-                    <input type="number" class="form-control" id="new-price">
+                    <label for="coffee-price">Coffee Price</label>
+                    <input type="number" class="form-control" id="coffee-price">
                 </div>
                 <div class="form-group">
-                    <label for="new-description">Coffee Description</label>
-                    <input type="text" class="form-control" id="new-description">
+                    <label for="coffee-description">Coffee Description</label>
+                    <input type="text" class="form-control" id="coffee-description">
                     <button class="btn btn-info mt-3" id="submit"><span id="submit-span">Add</span> Coffee</button>
                 </div>
             </form>
@@ -81,6 +93,7 @@
     </div>
 </main>
 
+<!-- Scripts -->
 <script src="https://kit.fontawesome.com/dc8bc1f2b7.js" crossorigin="anonymous"></script>
 <script src="main.js"></script>
 </body>

@@ -1,12 +1,11 @@
 :root {
-    --cp-lightbrown: #967259;
-    --cp-brown: #7A4F38;
-    --cp-darkbrown: #3C2F2F;
-    /*--bg-grey: #D3D3D3;*/
+    --cp-light: #967259;
+    --cp-medium: #7A4F38;
+    --cp-dark: #3C2F2F;
 }
 
 body {
-    background-color: #efefef;
+    background-color: #EFEFEF;
 }
 
 #coffee-container {
@@ -21,27 +20,27 @@ body {
     text-align: center;
 }
 
-.coffee-card p {
-    font-size: 1.5em;
-}
-
 .coffee-footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 6em;
+    padding: 0 4em;
+}
+
+.coffee-footer p {
+    font-size: 1.3em;
 }
 
 .light-roast {
-    color: var(--cp-lightbrown);
+    color: var(--cp-light);
 }
 
 .medium-roast {
-    color: var(--cp-brown);
+    color: var(--cp-medium);
 }
 
 .dark-roast {
-    color: var(--cp-darkbrown);
+    color: var(--cp-medium);
 }
 
 .active {
